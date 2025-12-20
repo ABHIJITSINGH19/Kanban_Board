@@ -31,7 +31,9 @@ const Login = () => {
   });
 
   useEffect(() => {
-    dispatch(clearError());
+    return () => {
+      dispatch(clearError());
+    };
   }, [dispatch]);
 
   useEffect(() => {
@@ -41,6 +43,7 @@ const Login = () => {
   }, [isAuthenticated, navigate]);
 
   const onSubmit = async (data) => {
+    dispatch(clearError());
     const result = await dispatch(loginUser(data));
     if (loginUser.fulfilled.match(result)) {
       navigate("/");
